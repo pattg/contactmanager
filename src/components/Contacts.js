@@ -13,7 +13,7 @@ class Contacts extends React.Component {
       {
         id: 2,
         name: 'Stefanie Fritzel',
-        email: 'stefanie.fritzel@googlemail.com.com',
+        email: 'stefanie.fritzel@googlemail.com',
         phone: '0176636346'
       },
       {
@@ -25,18 +25,31 @@ class Contacts extends React.Component {
     ]
   };
 
+  deleteContact = id => {
+    const newContacts = this.state.contacts.filter(
+      contact => contact.id !== id
+    );
+
+    this.setState({
+      contacts: newContacts
+    });
+  };
+
   render() {
     return (
-      <div>
+      <React.Fragment>
         {this.state.contacts.map(contact => (
           <Contact
             key={contact.id}
             name={contact.name}
             email={contact.email}
             phone={contact.phone}
+            deleteClickHandler={() => {
+              this.deleteContact(contact.id);
+            }}
           />
         ))}
-      </div>
+      </React.Fragment>
     );
   }
 }
